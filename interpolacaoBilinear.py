@@ -38,5 +38,3 @@ def interpolacaoBilinear(imagemPath, novaLargura, novaAltura):
     
     return novaImagem.save(imagemPath.split('.')[0] + 'interpolada.jpg')
 
-#  de uso
-interpolacaoBilinear('36-atencao-area-de-teste.jpg', 300, 200)
