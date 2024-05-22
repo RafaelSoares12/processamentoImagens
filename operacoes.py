@@ -1,47 +1,51 @@
 import cv2
 import numpy as np
 
-def adicao(imagem_01, imagem_02, nome_saida):
-    # Carregar as imagens
-    imagem1 = cv2.imread(imagem_01)
-    imagem2 = cv2.imread(imagem_02)
+def adicao(imagem01, imagem02):
+    imagem1 = cv2.imread(imagem01)
+    imagem2 = cv2.imread(imagem02)
 
-    # Verificar se as imagens têm o mesmo tamanho
     largura = max(imagem1.shape[0], imagem2.shape[0])
     altura = max(imagem1.shape[1], imagem2.shape[1])
 
-    nova_imagem = np.zeros((largura, altura, 3), dtype=np.uint8)
+    novaImagem = np.zeros((largura, altura, 3), dtype=np.uint8)
 
     for x in range(largura):
         for y in range(altura):
+            # Verifica se a coordenada (x, y) está dentro das dimensões da primeira imagem.
             if x < imagem1.shape[0] and y < imagem1.shape[1]:
-                nova_imagem[x, y] += imagem1[x, y]
+                # Se estiver dentro das dimensões da primeira imagem, adiciona o valor do pixel correspondente na primeira imagem à nova imagem.
+                novaImagem[x, y] += imagem1[x, y]
+            
+            # Verifica se a coordenada (x, y) está dentro das dimensões da segunda imagem.
             if x < imagem2.shape[0] and y < imagem2.shape[1]:
-                nova_imagem[x, y] += imagem2[x, y]
+                # Se estiver dentro das dimensões da segunda imagem, adiciona o valor do pixel correspondente na segunda imagem à nova imagem.
+                novaImagem[x, y] += imagem2[x, y]
 
-    # Salvar a imagem resultante
-    cv2.imwrite(nome_saida, nova_imagem)
+    cv2.imwrite('resultadoSoma.png', novaImagem)
 
-def subtracao(imagem_01, imagem_02, nome_saida):
-    # Carregar as imagens
-    imagem1 = cv2.imread(imagem_01)
-    imagem2 = cv2.imread(imagem_02)
+def subtracao(imagem01, imagem02):
+    imagem1 = cv2.imread(imagem01)
+    imagem2 = cv2.imread(imagem02)
 
-    # Verificar se as imagens têm o mesmo tamanho
     largura = max(imagem1.shape[0], imagem2.shape[0])
     altura = max(imagem1.shape[1], imagem2.shape[1])
 
-    nova_imagem = np.zeros((largura, altura, 3), dtype=np.uint8)
+    novaImagem = np.zeros((largura, altura, 3), dtype=np.uint8)
 
     for x in range(largura):
         for y in range(altura):
+            # Verifica se a coordenada (x, y) está dentro das dimensões da primeira imagem.
             if x < imagem1.shape[0] and y < imagem1.shape[1]:
-                nova_imagem[x, y] += imagem1[x, y]
+                # Se estiver dentro das dimensões da primeira imagem, adiciona o valor do pixel correspondente na primeira imagem à nova imagem.
+                novaImagem[x, y] += imagem1[x, y]
+            
+            # Verifica se a coordenada (x, y) está dentro das dimensões da segunda imagem.
             if x < imagem2.shape[0] and y < imagem2.shape[1]:
-                nova_imagem[x, y] -= imagem2[x, y]
+                # Se estiver dentro das dimensões da segunda imagem, subtrai o valor do pixel correspondente na segunda imagem da nova imagem.
+                novaImagem[x, y] -= imagem2[x, y]
 
-    # Salvar a imagem resultante
-    cv2.imwrite(nome_saida, nova_imagem)
+    cv2.imwrite('resultadoSubtracao.png', novaImagem)
 
-adicao('image.png', 'imgBinaria.png', 'resultado_adicao.png')
-subtracao('image.png', 'imgBinaria.png', 'resultado_subtracao.png')
+adicao('image.png', 'imgBinaria.png')
+subtracao('image.png', 'imgBinaria.png')
