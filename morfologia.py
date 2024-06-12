@@ -33,8 +33,15 @@ def erodir(imagem, kernel):
 
     return imagemErodida  
 
-def carregarImagem(caminho_imagem):
-    imagem = Image.open(caminho_imagem).convert('L')
+def extrairContornos(imagemBinaria, kernel):
+    imagemErodida = erodir(imagemBinaria, kernel)
+    
+    contornos = imagemBinaria - imagemErodida
+    
+    return contornos
+
+def carregarImagem(caminhoImagem):
+    imagem = Image.open(caminhoImagem).convert('L')
     return np.array(imagem) 
 
 def salvarImg(array_imagem, caminho_saida):
@@ -46,6 +53,7 @@ entrada = 'imagem.jpg'
     
 imagemDilatadaPath = 'imagemDilatada.jpg'
 imagemErodidaPath = 'imagemErodida.jpg'
+imagemContornosPath = 'imagemContornos.jpg'
     
 imagem = carregarImagem(entrada)
     
@@ -53,6 +61,8 @@ kernel = np.ones((3, 3), dtype=np.uint8)
 
 imagemDilatada = dilatar(imagem, kernel)
 imagemErodida = erodir(imagem, kernel)
+contornosExtraidos = extrairContornos(imagem, kernel)
     
 salvarImg(imagemDilatada, imagemDilatadaPath)
 salvarImg(imagemErodida, imagemErodidaPath)
+salvarImg(contornosExtraidos, imagemContornosPath)
